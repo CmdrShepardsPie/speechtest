@@ -125,7 +125,9 @@ $(document).ready(() => {
                     // console.log('got comments', comments);
                     let next = (e) => {
                         // console.log('end', e);
-                        lastTime = lastTime + e.elapsedTime;
+                        if (e && e.elapsedTime) {
+                            lastTime = lastTime + e.elapsedTime;
+                        }
                         clearTimeout(speechTimeout);
                         window.speechSynthesis.cancel();
                         if (lastNotification) {
@@ -135,7 +137,8 @@ $(document).ready(() => {
                             readComments(comments);
                         } else {
                             pollForComments(video, resp.paging.cursors.before)
-                                .then((resp) => {
+                                .then((r) => {
+                                    resp = r;
                                     comments = resp.data;
                                     // console.log('got comments', comments);
                                     readComments(comments);
@@ -148,6 +151,7 @@ $(document).ready(() => {
                         if (Notification.permission === 'granted') {
                             lastNotification = new Notification(`Error: ${JSON.stringify(e)}`);
                         }
+                        next(e);
                     };
 
                     readComments(comments);
