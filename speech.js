@@ -57,9 +57,9 @@ $(document).ready(() => {
             synth.voice = person.voice;
             clearTimeout(speechTimeout);
             let time = Date.parse(comment.created_time);
-            let wait = lastTime !== null ? time - lastTime : 0;
+            let wait = 0;//lastTime !== null ? time - lastTime : 0;
             lastTime = time;
-            console.log('waiting', wait);
+            // console.log('waiting', wait);
             setTimeout(() => {
                 speechTimeout = setTimeout(() => { console.log('timeout', window.speechSynthesis.speaking); window.speechSynthesis.cancel(); }, 10000);
                 console.log(synth.text);
