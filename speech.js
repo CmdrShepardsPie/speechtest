@@ -15,6 +15,9 @@ $(document).ready(() => {
     let lastTime = null;
     let lastNotification;
 
+    window.addEventListener('beforeunload', () => { if (lastNotification) lastNotification.close(); window.speechSynthesis.cancel(); });
+    window.addEventListener('unload', () => { if (lastNotification) lastNotification.close(); window.speechSynthesis.cancel(); });
+
     function login() {
         console.log('login start');
         return new Promise((resolve) => {
@@ -121,7 +124,7 @@ $(document).ready(() => {
                     let comments = resp.data;
                     // console.log('got comments', comments);
                     let next = (e) => {
-                        console.log('end', e);
+                        // console.log('end', e);
                         lastTime = lastTime + e.elapsedTime;
                         clearTimeout(speechTimeout);
                         window.speechSynthesis.cancel();
@@ -142,6 +145,9 @@ $(document).ready(() => {
                     synth.onend = next;
                     synth.onerror = (e) => {
                         console.error('error', e);
+                        if (Notification.permission === 'granted') {
+                            lastNotification = new Notification(`Error: ${JSON.stringify(e)}`);
+                        }
                     };
 
                     readComments(comments);
