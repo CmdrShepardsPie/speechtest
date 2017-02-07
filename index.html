@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="speech.js"></script>
 </head>
 <body>
 
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1839569609635245',
+            xfbml      : true,
+            version    : 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+//    (function(d, s, id){
+//        var js, fjs = d.getElementsByTagName(s)[0];
+//        if (d.getElementById(id)) {return;}
+//        js = d.createElement(s); js.id = id;
+//        js.src = "//connect.facebook.net/en_US/sdk.js";
+//        fjs.parentNode.insertBefore(js, fjs);
+//    }(document, 'script', 'facebook-jssdk'));
+</script>
+<script src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+
+
+<script src="speech.js"></script>
 </body>
 </html>
